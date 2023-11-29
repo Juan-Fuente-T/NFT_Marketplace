@@ -5,6 +5,7 @@ import Profile from './components/Profile';
 import SellNFT from './components/SellNFT';
 import NFTPage from './components/NFTpage';
 import ReactDOM from "react-dom/client";
+
 import {
   BrowserRouter,
   Routes,

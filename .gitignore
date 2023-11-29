@@ -1,0 +1,12 @@
+# Ignora archivos y carpetas que coincidan con lo que se indica a continuación.
+
+# Carpetas y archivos
+/node_modules
+
+
+# Variables secretas .env 
+.env
+
+#importaciones
+@openzeppelin
+
