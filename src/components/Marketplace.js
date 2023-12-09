@@ -101,7 +101,7 @@ export default function Marketplace() {
   return (
       <div>
         <Navbar></Navbar>
-        <div className="flex flex-col place-items-center mt-20">
+        <div className="flex flex-col place-items-center m-10 mt-20">
           <div className="md:text-xl font-bold text-white">
             POPs
           </div>
@@ -110,15 +110,17 @@ export default function Marketplace() {
               return <NFTTile data={value} key={index}></NFTTile>;
             })}
           </div>
+          <div className="flex mt-5 text-center text-white mt-12 mb-12" >
           {walletAddress && (
             <p>Wallet Address: {walletAddress}</p>
           )}
           {!walletAddress && (
             <div>
-              <p>Connect Your Wallet </p>  
-              <button onClick={connectMetaMask} className="enableEthereumButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm">{connected ? "Connected" : "Connect"}</button>
+              <p className="flex mt-5 justify-between flex-wrap max-w-screen-xl text-center text-white">Connect Your Wallet </p>  
+              <button onClick={connectMetaMask} className="enableEthereumButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm mb-10">{connected ? "Connected" : "Connect"}</button>
             </div>
           )}
+          </div>
         </div>
       </div>
   );
