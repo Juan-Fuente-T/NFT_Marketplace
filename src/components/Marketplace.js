@@ -14,9 +14,8 @@ export default function Marketplace() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("Initial connected state:", connected);
     const fetchData = async () => {
-      
+
       // Realizar la llamada al contrato para obtener todos los NFT
       const web3 = new Web3(window.ethereum);
       const contract = new web3.eth.Contract(MarketplaceJSON.abi, MarketplaceJSON.address);
@@ -60,7 +59,7 @@ export default function Marketplace() {
   }, []);
 
   const connectMetaMask = () => {
-    try{
+    try {
       if (window.ethereum) {
         /* eslint-disable no-unused-vars */
         // const web3 = new Web3(window.ethereum);
@@ -96,32 +95,32 @@ export default function Marketplace() {
       setError("Error en connectMetaMask");
     }
   };
-  
+
 
   return (
-      <div>
-        <Navbar></Navbar>
-        <div className="flex flex-col place-items-center m-10 mt-20">
-          <div className="md:text-xl font-bold text-white">
-            POPs
-          </div>
-          <div className="flex mt-5 justify-between flex-wrap max-w-screen-xl text-center">
-            {data.map((value, index) => {
-              return <NFTTile data={value} key={index}></NFTTile>;
-            })}
-          </div>
-          <div className="flex mt-5 text-center text-white mt-12 mb-12" >
+    <div>
+      <Navbar></Navbar>
+      <div className="flex flex-col place-items-center m-10 mt-20">
+        <div className="md:text-xl font-bold text-white">
+          POPs
+        </div>
+        <div className="flex mt-5 justify-between flex-wrap max-w-screen-xl text-center">
+          {data.map((value, index) => {
+            return <NFTTile data={value} key={index}></NFTTile>;
+          })}
+        </div>
+        <div className="flex mt-5 text-center text-white mt-12 mb-12" >
           {walletAddress && (
-            <p>Wallet Address: {walletAddress}</p>
+            <p>Wallet Address: {(walletAddress.substring(0, 15) + '...')}</p>
           )}
           {!walletAddress && (
             <div>
-              <p className="flex mt-5 justify-between flex-wrap max-w-screen-xl text-center text-white">Connect Your Wallet </p>  
+              <p className="flex mt-5 justify-between flex-wrap max-w-screen-xl text-center text-white">Connect Your Wallet </p>
               <button onClick={connectMetaMask} className="enableEthereumButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm mb-10">{connected ? "Connected" : "Connect"}</button>
             </div>
           )}
-          </div>
         </div>
       </div>
+    </div>
   );
 }

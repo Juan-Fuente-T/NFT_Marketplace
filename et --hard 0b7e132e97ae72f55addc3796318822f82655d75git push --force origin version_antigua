@@ -1,0 +1,66 @@
+[33mcommit 0b7e132e97ae72f55addc3796318822f82655d75[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mversion_antigua[m[33m)[m
+Author: Juan Fuente <127140423+Juan-Fuente-T@users.noreply.github.com>
+Date:   Fri Dec 8 23:30:36 2023 +0100
+
+    Recuperarcion version antigua Marketplace
+
+[33mcommit 5c3d351853e299ec859cf89b242da26d4e943845[m[33m ([m[1;31m_origin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: Juan Fuente <jfuentet@gmail.com>
+Date:   Thu Nov 30 00:47:11 2023 +0100
+
+    Build commit
+
+[33mcommit ca6fe593956d5a0e532d6debaef6c364e3c2a4cb[m
+Merge: 469c6aa 833682e
+Author: Juan Fuente <jfuentet@gmail.com>
+Date:   Thu Nov 30 00:33:17 2023 +0100
+
+    Resolve merge conflict in README.md
+
+[33mcommit 469c6aa59b073933675fd90811964856354bb2bf[m
+Author: Juan Fuente <jfuentet@gmail.com>
+Date:   Wed Nov 29 23:51:52 2023 +0100
+
+    Initial commit
+
+[33mcommit 833682e9a64af14033fc1b695681e0d9204a8904[m
+Author: Juan Fuente <127140423+Juan-Fuente-T@users.noreply.github.com>
+Date:   Wed Nov 29 23:44:27 2023 +0100
+
+    Initial commit
+
+[33mcommit 4d5d68089e9ed38b86d363148260ed9f256fed18[m
+Author: Aniket Gupta <aniketguptaknp@gmail.com>
+Date:   Mon Apr 24 16:21:15 2023 +0530
+
+    Fix buy this nft button logic
+
+[33mcommit a0802976c41f3deb3d147ec594fb12d5e0fca497[m
+Author: Aniket Gupta <aniketguptaknp@gmail.com>
+Date:   Mon Apr 24 16:04:03 2023 +0530
+
+    Frontend changes to allow button freezing
+
+[33mcommit 48b0ec18b4137a4d35899b1a9cbb6c9a698e0547[m
+Author: Aniket Gupta <aniketguptaknp@gmail.com>
+Date:   Mon Apr 24 15:28:12 2023 +0530
+
+    Replace pinata URL with IPFS and remove CORS issue
+
+[33mcommit 5549c8a26d48a4fe7926442e95eed76be617e3af[m
+Author: Aniket Gupta <aniketguptaknp@gmail.com>
+Date:   Sun Jun 12 22:10:38 2022 -0700
+
+    Update hardhat config
+
+[33mcommit 87b49bdb1976b37bb3f9b912dcbc45b9917710c1[m
+Author: Aniket Gupta <aniketguptaknp@gmail.com>
+Date:   Sun Jun 12 19:53:48 2022 -0700
+
+    Cleanup code to bare structure
+
+[33mcommit b9ef3ebfd99df71874678732f39df8cab3d60458[m
+Author: Aniket Gupta <aniketguptaknp@gmail.com>
+Date:   Mon Jun 13 07:54:20 2022 +0530
+
+    Initialize Project
