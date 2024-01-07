@@ -2,6 +2,7 @@
 
 # Carpetas y archivos
 /node_modules
+/pruebas-copias
 
 
 # Variables secretas .env 

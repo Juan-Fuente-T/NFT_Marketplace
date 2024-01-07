@@ -21,7 +21,7 @@ export default function Profile() {
             let sumPrice = 0;
 
             try {
-                const provider = new ethers.BrowserProvider(window.ethereum);
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const signer = provider.getSigner();
                 const addr = await signer.getAddress();
 

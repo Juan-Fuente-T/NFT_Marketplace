@@ -1,10 +1,10 @@
-import Navbar from "./Navbar";
+import Navbar from "../Navbar";
 import axie from "../tile.jpeg";
 import { useLocation, useParams } from 'react-router-dom';
-import MarketplaceJSON from "../Marketplace.json";
+import MarketplaceJSON from "../../Marketplace.json";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { GetIpfsUrlFromPinata } from "../utils";
+import { GetIpfsUrlFromPinata } from "../../utils";
 //import { web3 } from "web3";
 import Web3 from 'web3';
 import { ethers } from 'ethers';
@@ -80,13 +80,41 @@ export default function NFTPage(props) {
             if (window.ethereum) {
                 const web3 = new Web3(window.ethereum);
                 const contract = new web3.eth.Contract(MarketplaceJSON.abi, MarketplaceJSON.address);
-                //const salePrice = web3.utils.toWei(data.price, 'ether');
-                let salePrice;
-                if (currAddress === data.seller) {
-                    salePrice = 0;
-                } else {
-                    salePrice = web3.utils.toWei(data.price, 'ether');
+                const salePrice = web3.utils.toWei(data.price, 'ether');
+                updateMessage("Buying the NFT... Please Wait (Upto 5 mins)")
+                //run the executeSale function
+                let transaction = await contract.methods.executeSale(tokenId).send({ from: currAddress, value: salePrice });
+
+                // Check if the transaction was successful
+                if (transaction.status) {
+                    // Update the interface to reflect the change in ownership
+                    updateData(prevState => ({
+                        ...prevState,
+                        owner: currAddress
+                    }));
                 }
+
+                alert('You successfully bought the NFT!');
+                updateMessage("");
+            } else {
+                alert('Please install MetaMask to purchase this item');
+            }
+        }
+        catch (e) {
+            alert("Upload Error" + e)
+        }
+    }
+    async function reclaimNFT(tokenId) {
+        if (!window.ethereum) {
+            alert("MetaMask no está instalado o no está conectado.");
+            return;
+        }
+
+        try {
+            if (window.ethereum) {
+                const web3 = new Web3(window.ethereum);
+                const contract = new web3.eth.Contract(MarketplaceJSON.abi, MarketplaceJSON.address);
+                const salePrice = web3.utils.toWei(data.price, 'ether');
                 updateMessage("Buying the NFT... Please Wait (Upto 5 mins)")
                 //run the executeSale function
                 let transaction = await contract.methods.executeSale(tokenId).send({ from: currAddress, value: salePrice });
@@ -158,13 +186,10 @@ export default function NFTPage(props) {
                             accounts.length > 0 ?
                                 <button className="enableEthereumButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm" onClick={() => buyNFT(tokenId)}>Buy this NFT</button>
                                 : <div className="text-red-500">Please connect your wallet to buy this NFT</div>
-                            : currAddress == data.seller ?
-                                <>
-                                    <div className="text-white">You are the seller of this NFT</div>
-                                    <button className="enableEthereumButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm" onClick={() => buyNFT(tokenId)}>Reclaim this NFT for free</button>
-                                </>
-                                : <div className="text-white">This NFT is currently for sale</div>
+                            : <div className="text-white">You are the seller of this NFT</div>
                         }
+
+                        <div className="text-green text-center mt-3">{message}</div>
                     </div>
 
                 </div>
@@ -172,9 +197,3 @@ export default function NFTPage(props) {
         </div>
     )
 }
-
-//habria que añadir esta funcion al conytrato y mintearlo de nuevo para que este cambio funcione
-/*function reclaimNFT(uint256 _tokenId) public {
-    require(msg.sender == owner, "Only the owner can reclaim NFTs");
-    _transfer(address(this), msg.sender, _tokenId);
-  }*/
