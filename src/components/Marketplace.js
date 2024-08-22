@@ -29,6 +29,7 @@ export default function Marketplace() {
       // Procesar los NFT y actualizar el estado
       const nftData = await Promise.all(allNFTs.map(async (item) => {
         const tokenURI = await contract.methods.tokenURI(item.tokenId).call();
+        console.log("TokenURI Marketplace: ", tokenURI);
         const meta = await axios.get(tokenURI);
         return {
           tokenId: item.tokenId,
@@ -39,6 +40,7 @@ export default function Marketplace() {
         };
       }));
       updateData(nftData);
+      // console.log("DATA_Marketplace", data);
 
       // Verificar si hay una cuenta conectada
       const accounts = await window.ethereum.request({ method: 'eth_accounts' });
@@ -57,6 +59,10 @@ export default function Marketplace() {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    // console.log("DATA_Marketplace", data);
+  }, [data]);
 
   const connectMetaMask = () => {
     try {

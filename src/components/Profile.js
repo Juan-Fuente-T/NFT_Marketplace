@@ -1,10 +1,10 @@
 import Navbar from "./Navbar";
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import MarketplaceJSON from "../Marketplace.json";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import NFTTile from "./NFTTile";
-import { ethers } from 'ethers';
+// import { ethers } from 'ethers';
 
 export default function Profile() {
     const [data, updateData] = useState([]);
@@ -21,9 +21,24 @@ export default function Profile() {
             let sumPrice = 0;
 
             try {
+                if (!window.ethereum) {
+                    console.error('No se pudo encontrar window.ethereum. Asegúrate de que tu wallet esté instalada y activada.');
+                    setError("No se pudo encontrar window.ethereum. Asegúrate de que tu wallet esté instalada y activada.");
+                    return; // Salir de la función si window.ethereum no está definido
+                }    
+
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const signer = provider.getSigner();
+                
+                const accounts = await provider.listAccounts();
+                if (accounts.length === 0) {
+                    console.error('No se pudo obtener la dirección de la cuenta. Asegúrate de que la cuenta esté conectada.');
+                    setError("No se pudo obtener la dirección de la cuenta. Asegúrate de que la cuenta esté conectada.");
+                    return; // Salir de la función si no se puede obtener la dirección de la cuenta
+                }
+    
                 const addr = await signer.getAddress();
+                updateAddress(addr);
 
                 let contract = new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer);
                 let transaction = await contract.getMyNFTs();
@@ -49,8 +64,9 @@ export default function Profile() {
 
                 updateData(items);
                 updateFetched(true);
-                updateAddress(addr);
+                // updateAddress(addr);
                 updateTotalPrice(sumPrice.toPrecision(3));
+                console.log("DATA_Profile", data);
             } catch (error) {
                 console.error("Error fetching NFT data:", error);
                 setError("Error fetching NFT data");
@@ -58,7 +74,7 @@ export default function Profile() {
         };
 
         fetchData().catch(console.error);
-    }, [tokenId]);
+    }, [tokenId, data]);
     return (
         <div className="profileClass" style={{ "minHeight": "100vh" }}>
             <Navbar></Navbar>
@@ -87,7 +103,7 @@ export default function Profile() {
                         })}
                     </div>
                     <div className="mt-10 text-xl">
-                        {data.length == 0 ? "Oops, No NFT data to display (Are you logged in?)" : ""}
+                        {data.length === 0 ? "Oops, No NFT data to display (Are you logged in?)" : ""}
                     </div>
                 </div>
             </div>

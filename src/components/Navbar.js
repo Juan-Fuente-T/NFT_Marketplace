@@ -13,7 +13,7 @@ import Web3 from 'web3';
 
 function Navbar() {
   const [connected, toggleConnect] = useState(false);
-  const [walletAddress, setWalletAddress] = useState(null);
+  // const [walletAddress, setWalletAddress] = useState(null);
   const location = useLocation();
   const [currAddress, updateAddress] = useState('0x');
   //const { ethers } = require("ethers");
@@ -33,6 +33,7 @@ function Navbar() {
 
   const getAddress = async () => {
     try {
+      // if (window.ethereum && window.ethereum.isMetaMask) {
       if (window.ethereum && window.ethereum.isMetaMask) {
         const { ethers } = require("ethers");
         const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -40,7 +41,7 @@ function Navbar() {
         const addr = await signer.getAddress();
         updateAddress(addr);
       } else {
-        console.error("MetaMask no está instalado o no se detecta window.ethereum.");
+        console.error("La wallet no está instalada o no se detecta window.ethereum.");
       }
     } catch (error) {
       console.error("Error al obtener la dirección:", error);
@@ -72,7 +73,7 @@ function Navbar() {
         .then((accounts) => {
           const address = accounts[0];
           if (address !== currAddress) {
-            setWalletAddress(address);
+            // setWalletAddress(address);
             toggleConnect(true); // Actualizar el estado a conectado
           }
         })
@@ -99,7 +100,7 @@ function Navbar() {
         window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
       };
     } else {
-      console.error("MetaMask no está instalado.");
+      console.error("La wallet no está instalada.");
     }
   }, []);
 
